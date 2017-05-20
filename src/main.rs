@@ -1,8 +1,9 @@
 extern crate ray_tracer_simple_image;
 use ray_tracer_simple_image::point::Point;
+use ray_tracer_simple_image::shape::sphere::Sphere;
 
 fn main() {
-    let point = Point::new(4, 2, -7);
+    let sphere = Sphere::new(Point::new(4.0, 2.0, -7.0), 22.1);
 
-    println!("Hello, world, here's a point: {}", point);
+    println!("Hello, world, here's a sphere: {}", sphere);
 }

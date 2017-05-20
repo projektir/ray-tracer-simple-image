@@ -1,14 +1,22 @@
 use std::fmt;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Point {
-    x: i32,
-    y: i32,
-    z: i32
+    pub x: f32,
+    pub y: f32,
+    pub z: f32
+}
+
+impl PartialEq for Point {
+    fn eq(&self, other: &Point) -> bool {
+        self.x == other.x &&
+        self.y == other.y &&
+        self.z == other.z
+    }
 }
 
 impl Point {
-    pub fn new(x: i32, y: i32, z: i32) -> Point {
+    pub fn new(x: f32, y: f32, z: f32) -> Point {
         Point { x, y, z }
     }
 }
@@ -25,23 +33,23 @@ mod tests {
 
     #[test]
     fn new_point_should_assign_xyz() {
-        let point = Point::new(3, 4, 1);
-        assert_eq!(3, point.x);
-        assert_eq!(4, point.y);
-        assert_eq!(1, point.z);
+        let point = Point::new(3.2, 4.0, -1.5);
+        assert_eq!(3.2, point.x);
+        assert_eq!(4.0, point.y);
+        assert_eq!(-1.5, point.z);
     }
 
     #[test]
     fn point_print_debug() {
-        let point = Point::new(6, 8, -5);
+        let point = Point::new(6.2, 8.0, -5.3);
 
-        assert_eq!("Point { x: 6, y: 8, z: -5 }", format!("{:?}", point));
+        assert_eq!("Point { x: 6.2, y: 8, z: -5.3 }", format!("{:?}", point));
     }
 
     #[test]
     fn point_print_display() {
-        let point = Point::new(6, 10, -5);
+        let point = Point::new(6.3, 10.0, -5.0);
 
-        assert_eq!("(6, 10, -5)", format!("{}", point));
+        assert_eq!("(6.3, 10, -5)", format!("{}", point));
     }
 }
