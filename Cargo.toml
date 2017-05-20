@@ -1,0 +1,6 @@
+[package]
+name = "ray_tracer_simple_image"
+version = "0.1.0"
+authors = ["projektir <oprojektir@gmail.com>"]
+
+[dependencies]
