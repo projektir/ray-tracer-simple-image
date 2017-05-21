@@ -1,13 +1,15 @@
 use std::fs::File;
 use std::io::prelude::*;
-use std::path::{Path};
+use std::path::Path;
 
-extern crate serde_json;
+use serde_json;
+
+use image::{ImageBuffer, RgbaImage};
 
 use scene::Scene;
 use shape::sphere::Sphere;
 
-pub fn load_scene(path: &str) {
+pub fn load_scene(path: &str) -> Scene {
     let scenes_path = Path::new(path);
 
     let mut scene_json: String = String::new();
@@ -32,12 +34,12 @@ pub fn load_scene(path: &str) {
             scene.shapes.push(Box::new(sphere));
         }
     }
-
-    println!("Scene loaded:\n{}", scene);
-
-    render_scene(scene);
+    
+    scene
 }
 
-pub fn render_scene(scene: Scene) {
-    
+pub fn render_scene(scene: Scene, width: u32, height: u32) {
+    let mut image_vec = vec![0; 4 * (width * height) as usize];
+
+    let image_buffer: RgbaImage = ImageBuffer::from_raw(width, height, image_vec).unwrap();
 }
