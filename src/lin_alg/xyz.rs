@@ -1,5 +1,7 @@
 use std::fmt;
 
+use super::*;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Xyz {
     pub x: f32,
@@ -21,7 +23,7 @@ impl Xyz {
     }
 
     pub fn length(&self) -> f32 {
-        (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()
+        (self.x.square() + self.y.square() + self.z.square()).sqrt()
     }
 
     pub fn normalize(&self) -> Xyz {

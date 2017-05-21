@@ -1,7 +1,9 @@
 use std::fmt;
 
 use shape::Shape;
+use lin_alg::Square;
 use lin_alg::xyz::Xyz;
+use lin_alg::ray::Ray;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Sphere {
@@ -21,7 +23,17 @@ impl fmt::Display for Sphere {
     }
 }
 
-impl Shape for Sphere { }
+impl Shape for Sphere {
+    fn intersect(&self, ray: &Ray) -> f32 {
+        let origin = &ray.origin;
+        let direction = &ray.direction;
+        let center = &self.center;
+
+        let a = direction.x.square() + direction.y.square() + direction.z.square();
+
+        0.0
+    }
+}
 
 #[cfg(test)]
 mod tests {
