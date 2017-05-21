@@ -10,7 +10,7 @@ pub fn trace_image(image: &mut RgbImage, scene: &Scene) {
 
     for x in 0..scene.width {
         for y in 0..scene.height {
-            let pixel = trace_ray(&scene, &mut base_ray, x as f32, y as f32);
+            let pixel = trace_ray(scene, &mut base_ray, x as f32, y as f32);
             image.put_pixel(x, y, pixel);
         }
     }
@@ -22,7 +22,7 @@ pub fn trace_ray(scene: &Scene, ray: &mut Ray, x: f32, y: f32) -> Rgb<u8> {
 
     let color = Rgb { data: [0, 0, 0] };
 
-    for shape in scene.shapes.iter() {
+    for shape in &scene.shapes {
         
     }
 

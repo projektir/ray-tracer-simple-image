@@ -58,7 +58,7 @@ pub fn render_scene(scene: &Scene) {
 
     let mut img: RgbImage = ImageBuffer::from_raw(scene.width, scene.height, image_vec).unwrap();
 
-    trace_image(&mut img, &scene);
+    trace_image(&mut img, scene);
 
-    let _ = save_buffer("test.png", &img, scene.width, scene.height, ColorType::RGB(8)).unwrap();
+    save_buffer("test.png", &img, scene.width, scene.height, ColorType::RGB(8)).unwrap();
 }

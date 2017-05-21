@@ -34,11 +34,17 @@ impl fmt::Display for Scene {
         write!(f, "FoV: {}\n", self.fov)?;
         write!(f, "Near Clip: {}\n", self.near_clip)?;
 
-        for shape in self.shapes.iter() {
+        for shape in &self.shapes {
             write!(f, "{}\n", shape)?;
         }
 
         Ok(())
+    }
+}
+
+impl Default for Scene {
+    fn default() -> Scene {
+        Scene::new()
     }
 }
 
