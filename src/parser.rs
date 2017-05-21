@@ -4,7 +4,7 @@ use std::path::Path;
 
 use serde_json;
 
-use image::{ImageBuffer, RgbaImage, GenericImage, save_buffer, ColorType};
+use image::{ImageBuffer, RgbImage, Rgb, save_buffer, ColorType};
 
 use scene::Scene;
 use shape::sphere::Sphere;
@@ -39,12 +39,20 @@ pub fn load_scene(path: &str) -> Scene {
 }
 
 pub fn render_scene(scene: Scene, width: u32, height: u32) {
-    let mut image_vec = vec![0; 4 * (width * height) as usize];
+    let mut image_vec = vec![0; 3 * (width * height) as usize];
 
-    let img: RgbaImage = ImageBuffer::from_raw(width, height, image_vec).unwrap();
+    let mut img: RgbImage = ImageBuffer::from_raw(width, height, image_vec).unwrap();
 
+    let pixel = Rgb { data: [0, 128, 255] };
+    img.put_pixel(0, 0, pixel);
+    img.put_pixel(25, 25, pixel);
+    img.put_pixel(24, 24, pixel);
 
+    let pixel = Rgb { data: [255, 255, 255] };
+    img.put_pixel(30, 30, pixel);
 
-    let ref mut fout = File::create(&Path::new("test.png")).unwrap();
-    let _ = save_buffer("test.png", &img, width, height, ColorType::RGBA(8)).unwrap();
+    let pixel = Rgb { data: [0, 0, 0] };
+    img.put_pixel(31, 31, pixel);
+
+    let _ = save_buffer("test.png", &img, width, height, ColorType::RGB(8)).unwrap();
 }
