@@ -1,6 +1,7 @@
-use shape::Shape;
-use point::Point;
 use std::fmt;
+
+use shape::Shape;
+use lin_alg::point::Point;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Sphere {
@@ -33,12 +34,6 @@ mod tests {
 
         assert_eq!(point, sphere.center);
         assert_eq!(22.1, sphere.radius);
-    }
-
-    #[test]
-    fn sphere_print_debug() {
-        let sphere = Sphere::new(Point::new(3.0, 4.4, 1.0), 22.1);
-
         assert_eq!("Sphere { center: Point { x: 3, y: 4.4, z: 1 }, radius: 22.1 }",
             format!("{:?}", sphere));
     }

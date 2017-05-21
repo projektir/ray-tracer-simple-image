@@ -34,16 +34,11 @@ mod tests {
     #[test]
     fn new_point_should_assign_xyz() {
         let point = Point::new(3.2, 4.0, -1.5);
+
         assert_eq!(3.2, point.x);
         assert_eq!(4.0, point.y);
         assert_eq!(-1.5, point.z);
-    }
-
-    #[test]
-    fn point_print_debug() {
-        let point = Point::new(6.2, 8.0, -5.3);
-
-        assert_eq!("Point { x: 6.2, y: 8, z: -5.3 }", format!("{:?}", point));
+        assert_eq!("Point { x: 3.2, y: 4, z: -1.5 }", format!("{:?}", point));
     }
 
     #[test]

@@ -27,7 +27,7 @@ mod tests {
     use super::*;
 
     use shape::sphere::Sphere;
-    use point::Point;
+    use lin_alg::point::Point;
 
     #[test]
     fn scene_print_display() {
@@ -39,6 +39,7 @@ mod tests {
         scene.shapes.push(Box::new(sphere1));
         scene.shapes.push(Box::new(sphere2));
 
-        assert_eq!("(center: (6.3, 10, -5), radius: 22.1)\n(center: (2.3, -3, -9), radius: 10)\n", format!("{}", scene));
+        assert_eq!("Sphere: { center: (6.3, 10, -5), radius: 22.1 }\n\
+            Sphere: { center: (2.3, -3, -9), radius: 10 }\n", format!("{}", scene));
     }
 }

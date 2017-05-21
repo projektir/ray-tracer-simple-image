@@ -35,5 +35,5 @@ fn main() {
         }
     }
 
-    println!("Scene loaded: {}", scene);
+    println!("Scene loaded:\n{}", scene);
 }
