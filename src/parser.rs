@@ -4,12 +4,11 @@ use std::path::Path;
 
 use serde_json;
 
-use image::{ImageBuffer, RgbImage, Rgb, save_buffer, ColorType};
+use image::{ImageBuffer, RgbImage, save_buffer, ColorType};
 
+use tracer::trace_image;
 use scene::Scene;
 use shape::sphere::Sphere;
-use lin_alg::ray::Ray;
-use lin_alg::xyz::Xyz;
 
 pub fn load_scene(path: &str) -> Scene {
     let path = Path::new(path);
@@ -54,28 +53,12 @@ pub fn load_scene(path: &str) -> Scene {
     scene
 }
 
-pub fn render_scene(scene: Scene, width: u32, height: u32) {
-    let mut image_vec = vec![0; 3 * (width * height) as usize];
+pub fn render_scene(scene: &Scene) {
+    let image_vec = vec![0; 3 * (scene.width * scene.height) as usize];
 
-    let mut img: RgbImage = ImageBuffer::from_raw(width, height, image_vec).unwrap();
+    let mut img: RgbImage = ImageBuffer::from_raw(scene.width, scene.height, image_vec).unwrap();
 
-    trace_image(&mut img);
+    trace_image(&mut img, &scene);
 
-    let _ = save_buffer("test.png", &img, width, height, ColorType::RGB(8)).unwrap();
-}
-
-pub fn trace_image(image: &mut RgbImage) {
-    let (width, height) = image.dimensions();
-
-    let base_ray = Ray::new(Xyz::new(0.0, 0.0, 0.0), Xyz::new(0.0, 0.0, 0.0));
-
-    let pixel = trace_ray(base_ray.clone(), 20.0, 20.0);
-
-    image.put_pixel(20, 20, pixel);
-}
-
-pub fn trace_ray(mut base_ray: Ray, x: f32, y: f32) -> Rgb<u8> {
-    base_ray.direction = Xyz::new(2.0, 4.0, 2.0);
-
-    Rgb { data: [0, 128, 255] }
+    let _ = save_buffer("test.png", &img, scene.width, scene.height, ColorType::RGB(8)).unwrap();
 }

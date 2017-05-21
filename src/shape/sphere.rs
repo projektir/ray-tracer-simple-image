@@ -28,7 +28,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn new_sphere_should_assign_center_and_radius() {
+    fn new_should_assign_center_and_radius() {
         let xyz = Xyz::new(3.0, 4.4, 1.0);
         let sphere = Sphere::new(xyz.clone(), 22.1);
 
@@ -39,7 +39,7 @@ mod tests {
     }
 
     #[test]
-    fn sphere_print_display() {
+    fn print_display() {
         let sphere = Sphere::new(Xyz::new(6.3, 10.0, -5.0), 22.1);
 
         assert_eq!("Sphere: { center: (6.3, 10, -5), radius: 22.1 }", format!("{}", sphere));

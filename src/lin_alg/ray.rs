@@ -25,7 +25,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn new_ray_should_assign_origin_and_direction() {
+    fn new_should_assign_origin_and_direction() {
         let origin = Xyz::new(3.0, 4.4, 1.0);
         let direction = Xyz::new(5.0, -2.1, 2.0);
 
@@ -38,7 +38,7 @@ mod tests {
     }
 
     #[test]
-    fn ray_print_display() {
+    fn print_display() {
         let ray = Ray::new(Xyz::new(3.0, 4.4, 1.0), Xyz::new(5.0, -2.1, 2.0));
 
         assert_eq!("Ray: { origin: (3, 4.4, 1), direction: (5, -2.1, 2) }",
