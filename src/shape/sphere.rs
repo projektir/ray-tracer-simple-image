@@ -2,7 +2,7 @@ use shape::Shape;
 use point::Point;
 use std::fmt;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Sphere {
     center: Point,
     radius: f32
