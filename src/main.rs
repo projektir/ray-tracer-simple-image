@@ -1,15 +1,12 @@
 use std::fs::File;
 use std::io::prelude::*;
-use std::path::{Path, PathBuf};
+use std::path::{Path};
 
 extern crate serde_json;
-use serde_json::value::Value;
 
 extern crate ray_tracer_simple_image;
 use ray_tracer_simple_image::scene::Scene;
-use ray_tracer_simple_image::shape::Shape;
 use ray_tracer_simple_image::shape::sphere::Sphere;
-use ray_tracer_simple_image::point::Point;
 
 fn main() {
     let scenes_path = Path::new("scenes");
@@ -27,10 +24,16 @@ fn main() {
 
     let de_scene: serde_json::Value = serde_json::from_str(&scene_json).unwrap();
 
-    match de_scene {
-        Value::Array(_) => {
-            
-        },
-        _ => print!("Something else"),
+    let scene_array = de_scene.as_array().unwrap();
+
+    let mut scene = Scene::new();
+
+    for shape_object in scene_array.iter() {
+        if shape_object.is_object() && shape_object["sphere"].is_object() {
+            let sphere: Sphere = serde_json::from_str(&shape_object["sphere"].to_string()).unwrap();
+            scene.shapes.push(Box::new(sphere));
+        }
     }
+
+    println!("Scene loaded: {}", scene);
 }

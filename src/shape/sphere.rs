@@ -16,7 +16,7 @@ impl Sphere {
 
 impl fmt::Display for Sphere {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "(center: {}, radius: {})", self.center, self.radius)
+        write!(f, "Sphere: {{ center: {}, radius: {} }}", self.center, self.radius)
     }
 }
 
@@ -47,6 +47,6 @@ mod tests {
     fn sphere_print_display() {
         let sphere = Sphere::new(Point::new(6.3, 10.0, -5.0), 22.1);
 
-        assert_eq!("(center: (6.3, 10, -5), radius: 22.1)", format!("{}", sphere));
+        assert_eq!("Sphere: { center: (6.3, 10, -5), radius: 22.1 }", format!("{}", sphere));
     }
 }
