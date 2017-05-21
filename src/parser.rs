@@ -4,7 +4,7 @@ use std::path::Path;
 
 use serde_json;
 
-use image::{ImageBuffer, RgbaImage};
+use image::{ImageBuffer, RgbaImage, GenericImage, save_buffer, ColorType};
 
 use scene::Scene;
 use shape::sphere::Sphere;
@@ -12,13 +12,15 @@ use shape::sphere::Sphere;
 pub fn load_scene(path: &str) -> Scene {
     let scenes_path = Path::new(path);
 
-    let mut scene_json: String = String::new();
     let mut file: File;
+    
     file = match File::open(scenes_path) {
         Ok(file) => file,
         Err(_) => panic!("Unable to find file {:?}, make sure you are in the root directory of the project",
             scenes_path),
     };
+
+    let mut scene_json: String = String::new();
 
     file.read_to_string(&mut scene_json).unwrap();
 
@@ -41,5 +43,8 @@ pub fn load_scene(path: &str) -> Scene {
 pub fn render_scene(scene: Scene, width: u32, height: u32) {
     let mut image_vec = vec![0; 4 * (width * height) as usize];
 
-    let image_buffer: RgbaImage = ImageBuffer::from_raw(width, height, image_vec).unwrap();
+    let img: RgbaImage = ImageBuffer::from_raw(width, height, image_vec).unwrap();
+
+    let ref mut fout = File::create(&Path::new("test.png")).unwrap();
+    let _ = save_buffer("test.png", &img, width, height, ColorType::RGBA(8)).unwrap();
 }
