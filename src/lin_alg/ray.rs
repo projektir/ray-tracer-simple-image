@@ -1,15 +1,15 @@
 use std::fmt;
 
-use lin_alg::point::Point;
+use lin_alg::xyz::Xyz;
 
 #[derive(Debug, Clone)]
 pub struct Ray {
-    pub origin: Point,
-    pub direction: Point
+    pub origin: Xyz,
+    pub direction: Xyz
 }
 
 impl Ray {
-    pub fn new(origin: Point, direction: Point) -> Ray {
+    pub fn new(origin: Xyz, direction: Xyz) -> Ray {
         Ray { origin, direction }
     }
 }
@@ -26,20 +26,20 @@ mod tests {
 
     #[test]
     fn new_ray_should_assign_origin_and_direction() {
-        let origin = Point::new(3.0, 4.4, 1.0);
-        let direction = Point::new(5.0, -2.1, 2.0);
+        let origin = Xyz::new(3.0, 4.4, 1.0);
+        let direction = Xyz::new(5.0, -2.1, 2.0);
 
         let ray = Ray::new(origin.clone(), direction.clone());
 
         assert_eq!(ray.origin, origin);
         assert_eq!(ray.direction, direction);
-        assert_eq!("Ray { origin: Point { x: 3, y: 4.4, z: 1 }, direction: Point { x: 5, y: -2.1, z: 2 } }",
+        assert_eq!("Ray { origin: Xyz { x: 3, y: 4.4, z: 1 }, direction: Xyz { x: 5, y: -2.1, z: 2 } }",
             format!("{:?}", ray));
     }
 
     #[test]
     fn ray_print_display() {
-        let ray = Ray::new(Point::new(3.0, 4.4, 1.0), Point::new(5.0, -2.1, 2.0));
+        let ray = Ray::new(Xyz::new(3.0, 4.4, 1.0), Xyz::new(5.0, -2.1, 2.0));
 
         assert_eq!("Ray: { origin: (3, 4.4, 1), direction: (5, -2.1, 2) }",
             format!("{}", ray));

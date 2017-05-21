@@ -1,2 +1,2 @@
 pub mod ray;
-pub mod point;
+pub mod xyz;
