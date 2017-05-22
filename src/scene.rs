@@ -17,13 +17,7 @@ pub struct Scene {
 
 impl Scene {
     pub fn new() -> Scene {
-        Scene {
-            width: DEFAULT_WIDTH,
-            height: DEFAULT_HEIGHT,
-            fov: DEFAULT_FOV,
-            near_clip: DEFAULT_NEAR_CLIP,
-            shapes: Vec::new()
-        }
+        Scene::default()
     }
 }
 
@@ -44,7 +38,13 @@ impl fmt::Display for Scene {
 
 impl Default for Scene {
     fn default() -> Scene {
-        Scene::new()
+        Scene {
+            width: DEFAULT_WIDTH,
+            height: DEFAULT_HEIGHT,
+            fov: DEFAULT_FOV,
+            near_clip: DEFAULT_NEAR_CLIP,
+            shapes: Vec::new()
+        }
     }
 }
 

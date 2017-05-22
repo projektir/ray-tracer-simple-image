@@ -17,14 +17,18 @@ pub fn trace_image(image: &mut RgbImage, scene: &Scene) {
 }
 
 pub fn trace_ray(scene: &Scene, ray: &mut Ray, x: f32, y: f32) -> Rgb<u8> {
-    let direction = Xyz::screen_to_world(scene.width as f32, scene.height as f32, x, y, scene.near_clip, scene.fov);
+    let direction = Xyz::screen_to_world(scene.width as f32, scene.height as f32, x, y,
+        scene.near_clip, scene.fov);
     ray.direction = direction;
 
-    let color = Rgb { data: [0, 0, 0] };
+    let mut inter_dist: Option<f32> = None;
 
     for shape in &scene.shapes {
-        
+        inter_dist = shape.intersect(&*ray);
     }
 
-    color
+    match inter_dist {
+        Some(inter_dist) => Rgb { data: [0, 255, 255] },
+        None => Rgb { data: [0, 0, 0] }
+    }
 }

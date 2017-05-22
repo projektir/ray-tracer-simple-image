@@ -1,4 +1,5 @@
 use std::fmt;
+use std::ops::Sub;
 
 use super::*;
 
@@ -14,6 +15,16 @@ impl PartialEq for Xyz {
         self.x == other.x &&
         self.y == other.y &&
         self.z == other.z
+    }
+}
+
+impl Sub for Xyz {
+    type Output = Xyz;
+
+    fn sub(self, other: Xyz) -> Xyz {
+        Xyz::new(self.x - other.x,
+                 self.y - other.y,
+                 self.z - other.z)
     }
 }
 
@@ -55,8 +66,6 @@ impl fmt::Display for Xyz {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    const EPSILON: f32 = 0.00001;
 
     #[test]
     fn new_should_assign_xyz() {
