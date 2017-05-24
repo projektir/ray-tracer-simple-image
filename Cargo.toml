@@ -1,5 +1,5 @@
 [package]
-name = "ray_tracer_simple_image"
+name = "ray-tracer-simple-image"
 version = "0.1.0"
 authors = ["projektir <oprojektir@gmail.com>"]
 
