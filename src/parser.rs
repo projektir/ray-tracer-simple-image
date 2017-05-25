@@ -1,14 +1,18 @@
 use std::fs::File;
-use std::io::prelude::*;
 use std::path::Path;
 
 use serde_json;
+use serde::Deserialize;
 
 use image::{ImageBuffer, RgbImage, save_buffer, ColorType};
 
 use tracer::trace_image;
 use scene::Scene;
 use shape::sphere::Sphere;
+
+const FOV: &str = "FoV";
+const SPHERE: &str = "sphere";
+const SHAPES: &str = "shapes";
 
 pub fn load_scene(path: &str) -> Scene {
     let path = Path::new(path);
@@ -21,29 +25,20 @@ pub fn load_scene(path: &str) -> Scene {
             path),
     };
 
-    let mut scene_string: String = String::new();
-    file.read_to_string(&mut scene_string).unwrap();
-
-    let scene_json: serde_json::Value = serde_json::from_str(&scene_string).unwrap();
-    let scene_array = scene_json.as_array().unwrap();
+    let scene_object: serde_json::Value = serde_json::from_reader(file).unwrap();
 
     let mut scene = Scene::new();
 
-    for shape_object in scene_array.iter() {
-        println!("{}", shape_object);
+    if scene_object[FOV].is_number() {
+        let fov: f32 = scene_object[FOV].as_f64().unwrap() as f32;
+        scene.fov = fov;
+    }
 
-        const SPHERE: &str = "sphere";
-        const FOV: &str = "FoV";
-
-        if shape_object.is_object() {
-            if shape_object[SPHERE].is_object() {
-                let sphere: Sphere = serde_json::from_str(&shape_object[SPHERE].to_string()).unwrap();
+    if scene_object[SHAPES].is_array() {
+        for shape in scene_object[SHAPES].as_array().unwrap().iter() {
+            println!("it's an array");
+            if let Ok(sphere) = Sphere::deserialize(shape) {
                 scene.shapes.push(Box::new(sphere));
-            }
-
-            if shape_object[FOV].is_number() {
-                let fov: f32 = serde_json::from_str(&shape_object[FOV].to_string()).unwrap();
-                scene.fov = fov;
             }
         }
     }
