@@ -22,13 +22,18 @@ pub fn trace_ray(scene: &Scene, ray: &mut Ray, x: f32, y: f32) -> Rgb<u8> {
     ray.direction = direction;
 
     let mut inter_dist: Option<f32> = None;
+    let mut color = [0, 0, 0];
 
     for shape in &scene.shapes {
-        inter_dist = shape.intersect(&*ray);
+        let dist = shape.intersect(&*ray);
+
+        if dist != None {
+            if inter_dist == None || inter_dist < dist {
+                inter_dist = dist;
+                color = shape.get_material().color_diffuse;
+            }
+        }
     }
 
-    match inter_dist {
-        Some(inter_dist) => Rgb { data: [0, 255, 255] },
-        None => Rgb { data: [0, 0, 0] }
-    }
+    Rgb { data: color }
 }

@@ -1,6 +1,7 @@
 use std::fmt;
 
 use shape::Shape;
+use shape::Material;
 use lin_alg::Square;
 use lin_alg::xyz::Xyz;
 use lin_alg::ray::Ray;
@@ -8,12 +9,13 @@ use lin_alg::ray::Ray;
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Sphere {
     center: Xyz,
-    radius: f32
+    radius: f32,
+    material: Material
 }
 
 impl Sphere {
-    pub fn new(center: Xyz, radius: f32) -> Sphere {
-        Sphere { center, radius }
+    pub fn new(center: Xyz, radius: f32, material: Material) -> Sphere {
+        Sphere { center, radius, material }
     }
 }
 
@@ -24,6 +26,10 @@ impl fmt::Display for Sphere {
 }
 
 impl Shape for Sphere {
+    fn get_material(&self) -> &Material {
+        &self.material
+    }
+
     fn intersect(&self, ray: &Ray) -> Option<f32> {
         let origin = ray.origin.clone();
         let direction = ray.direction.clone();

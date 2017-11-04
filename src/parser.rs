@@ -11,13 +11,12 @@ use scene::Scene;
 use shape::sphere::Sphere;
 
 const FOV: &str = "FoV";
-const SPHERE: &str = "sphere";
 const SHAPES: &str = "shapes";
 
 pub fn load_scene(path: &str) -> Scene {
     let path = Path::new(path);
 
-    let mut file: File;
+    let file: File;
     
     file = match File::open(path) {
         Ok(file) => file,
@@ -36,7 +35,6 @@ pub fn load_scene(path: &str) -> Scene {
 
     if scene_object[SHAPES].is_array() {
         for shape in scene_object[SHAPES].as_array().unwrap().iter() {
-            println!("it's an array");
             if let Ok(sphere) = Sphere::deserialize(shape) {
                 scene.shapes.push(Box::new(sphere));
             }
