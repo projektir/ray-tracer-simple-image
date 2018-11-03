@@ -74,7 +74,7 @@ mod tests {
         assert_eq!(3.2, xyz.x);
         assert_eq!(4.0, xyz.y);
         assert_eq!(-1.5, xyz.z);
-        assert_eq!("Xyz { x: 3.2, y: 4, z: -1.5 }", format!("{:?}", xyz));
+        assert_eq!("Xyz { x: 3.2, y: 4.0, z: -1.5 }", format!("{:?}", xyz));
     }
 
     #[test]

@@ -53,14 +53,16 @@ mod tests {
     use super::*;
 
     use shape::sphere::Sphere;
+    use shape::material::Material;
+    
     use lin_alg::xyz::Xyz;
 
     #[test]
     fn print_display() {
         let mut scene = Scene::new();
         
-        let sphere1 = Sphere::new(Xyz::new(6.3, 10.0, -5.0), 22.1);
-        let sphere2 = Sphere::new(Xyz::new(2.3, -3.0, -9.0), 10.0);
+        let sphere1 = Sphere::new(Xyz::new(6.3, 10.0, -5.0), 22.1, Material::new());
+        let sphere2 = Sphere::new(Xyz::new(2.3, -3.0, -9.0), 10.0, Material::new());
 
         scene.shapes.push(Box::new(sphere1));
         scene.shapes.push(Box::new(sphere2));

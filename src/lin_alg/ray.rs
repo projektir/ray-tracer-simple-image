@@ -33,7 +33,7 @@ mod tests {
 
         assert_eq!(ray.origin, origin);
         assert_eq!(ray.direction, direction);
-        assert_eq!("Ray { origin: Xyz { x: 3, y: 4.4, z: 1 }, direction: Xyz { x: 5, y: -2.1, z: 2 } }",
+        assert_eq!("Ray { origin: Xyz { x: 3.0, y: 4.4, z: 1.0 }, direction: Xyz { x: 5.0, y: -2.1, z: 2.0 } }",
             format!("{:?}", ray));
     }
 
