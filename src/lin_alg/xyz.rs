@@ -7,14 +7,12 @@ use super::*;
 pub struct Xyz {
     pub x: f32,
     pub y: f32,
-    pub z: f32
+    pub z: f32,
 }
 
 impl PartialEq for Xyz {
     fn eq(&self, other: &Xyz) -> bool {
-        self.x == other.x &&
-        self.y == other.y &&
-        self.z == other.z
+        self.x == other.x && self.y == other.y && self.z == other.z
     }
 }
 
@@ -22,9 +20,7 @@ impl Sub for Xyz {
     type Output = Xyz;
 
     fn sub(self, other: Xyz) -> Xyz {
-        Xyz::new(self.x - other.x,
-                 self.y - other.y,
-                 self.z - other.z)
+        Xyz::new(self.x - other.x, self.y - other.y, self.z - other.z)
     }
 }
 
@@ -42,16 +38,22 @@ impl Xyz {
         Xyz::new(self.x / length, self.y / length, self.z / length)
     }
 
-    pub fn screen_to_world(screen_width: f32, screen_height: f32, screen_x: f32, screen_y: f32, world_z: f32, fov: f32) -> Xyz
-    {
+    pub fn screen_to_world(
+        screen_width: f32,
+        screen_height: f32,
+        screen_x: f32,
+        screen_y: f32,
+        world_z: f32,
+        fov: f32,
+    ) -> Xyz {
         let fov = fov.to_radians();
         let tan = (fov / 2.0).tan();
 
         let x_ratio = screen_width / (2.0 * tan);
         let y_ratio = screen_height / (2.0 * tan);
 
-        let world_x = ((screen_x / x_ratio) - tan ) * world_z.abs();
-        let world_y = ((screen_y / y_ratio) - tan ) * world_z.abs() * -1.0;
+        let world_x = ((screen_x / x_ratio) - tan) * world_z.abs();
+        let world_y = ((screen_y / y_ratio) - tan) * world_z.abs() * -1.0;
 
         Xyz::new(world_x, world_y, world_z)
     }
