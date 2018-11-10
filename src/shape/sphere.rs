@@ -76,7 +76,7 @@ mod tests {
     #[test]
     fn new_should_assign_center_and_radius() {
         let xyz = Xyz::new(3.0, 4.4, 1.0);
-        let sphere = Sphere::new(xyz.clone(), 22.1, Material::new());
+        let sphere = Sphere::new(xyz.clone(), 22.1, Material::default());
 
         assert_eq!(xyz, sphere.center);
         assert_eq!(22.1, sphere.radius);
@@ -86,7 +86,7 @@ mod tests {
 
     #[test]
     fn print_display() {
-        let sphere = Sphere::new(Xyz::new(6.3, 10.0, -5.0), 22.1, Material::new());
+        let sphere = Sphere::new(Xyz::new(6.3, 10.0, -5.0), 22.1, Material::default());
 
         assert_eq!(
             "Sphere: { center: (6.3, 10, -5), radius: 22.1 }",
@@ -96,7 +96,7 @@ mod tests {
 
     #[test]
     fn intersect_yes() {
-        let sphere = Sphere::new(Xyz::new(6.3, 10.0, -5.0), 22.1, Material::new());
+        let sphere = Sphere::new(Xyz::new(6.3, 10.0, -5.0), 22.1, Material::default());
         let ray = Ray::new(Xyz::new(3.0, 4.4, 1.0), Xyz::new(5.0, -2.1, 2.0));
 
         let intersection = sphere.intersect(&ray);
@@ -107,7 +107,7 @@ mod tests {
 
     #[test]
     fn intersect_no() {
-        let sphere = Sphere::new(Xyz::new(6.3, 10.0, -5.0), 1.1, Material::new());
+        let sphere = Sphere::new(Xyz::new(6.3, 10.0, -5.0), 1.1, Material::default());
         let ray = Ray::new(Xyz::new(3.0, 4.4, 1.0), Xyz::new(5.0, -2.1, 2.0));
 
         let intersection = sphere.intersect(&ray);
