@@ -5,7 +5,7 @@ use lin_alg::xyz::Xyz;
 #[derive(Debug, Clone)]
 pub struct Ray {
     pub origin: Xyz,
-    pub direction: Xyz
+    pub direction: Xyz,
 }
 
 impl Ray {
@@ -16,7 +16,11 @@ impl Ray {
 
 impl fmt::Display for Ray {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Ray: {{ origin: {}, direction: {} }}", self.origin, self.direction)
+        write!(
+            f,
+            "Ray: {{ origin: {}, direction: {} }}",
+            self.origin, self.direction
+        )
     }
 }
 
@@ -41,7 +45,9 @@ mod tests {
     fn print_display() {
         let ray = Ray::new(Xyz::new(3.0, 4.4, 1.0), Xyz::new(5.0, -2.1, 2.0));
 
-        assert_eq!("Ray: { origin: (3, 4.4, 1), direction: (5, -2.1, 2) }",
-            format!("{}", ray));
+        assert_eq!(
+            "Ray: { origin: (3, 4.4, 1), direction: (5, -2.1, 2) }",
+            format!("{}", ray)
+        );
     }
 }

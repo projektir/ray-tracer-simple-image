@@ -1,14 +1,14 @@
 use std::fs::File;
 use std::path::Path;
 
-use serde_json;
 use serde::Deserialize;
+use serde_json;
 
-use image::{ImageBuffer, RgbImage, save_buffer, ColorType};
+use image::{save_buffer, ColorType, ImageBuffer, RgbImage};
 
-use tracer::trace_image;
 use scene::Scene;
 use shape::sphere::Sphere;
+use tracer::trace_image;
 
 const FOV: &str = "FoV";
 const SHAPES: &str = "shapes";
@@ -17,11 +17,13 @@ pub fn load_scene(path: &str) -> Scene {
     let path = Path::new(path);
 
     let file: File;
-    
+
     file = match File::open(path) {
         Ok(file) => file,
-        Err(_) => panic!("Unable to find file {:?}, make sure you are in the root directory of the project",
-            path),
+        Err(e) => panic!(
+            "Unable to find file {:?}, make sure you are in the root directory of the project\n{:?}",
+            path, e
+        ),
     };
 
     let scene_object: serde_json::Value = serde_json::from_reader(file).unwrap();
@@ -40,7 +42,7 @@ pub fn load_scene(path: &str) -> Scene {
             }
         }
     }
-    
+
     println!("\n{}", scene);
 
     scene
@@ -53,5 +55,12 @@ pub fn render_scene(scene: &Scene) {
 
     trace_image(&mut img, scene);
 
-    save_buffer("test.png", &img, scene.width, scene.height, ColorType::RGB(8)).unwrap();
+    save_buffer(
+        "test.png",
+        &img,
+        scene.width,
+        scene.height,
+        ColorType::RGB(8),
+    )
+    .unwrap();
 }

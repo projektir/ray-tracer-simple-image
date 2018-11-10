@@ -1,5 +1,5 @@
-pub mod sphere;
 pub mod material;
+pub mod sphere;
 
 use std::fmt::Display;
 
